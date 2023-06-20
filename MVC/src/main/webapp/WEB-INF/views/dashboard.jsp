@@ -11,7 +11,23 @@
 </head>
 <body>
 <div class="container">
-    <h2>Welcome Dashboard</h2>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Code Save</h2>
+            <form action="/codeSave" method="post">
+                <div class="mb-3">
+                    <input name="plainText" placeholder="Plain Text" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <input name="useKey" placeholder="Key" class="form-control" />
+                </div>
+                <button class="btn btn-success">Save</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <h2>Code List</h2>
+        </div>
+    </div>
 </div>
 </body>
 </html>
