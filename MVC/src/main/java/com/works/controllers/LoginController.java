@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     final LoginService loginService;
+
 
     @GetMapping("/")
     public String login() {
@@ -29,7 +31,9 @@ public class LoginController {
         }
         model.addAttribute("email", admin.getEmail());
         boolean status = loginService.loginStatus(admin);
-        System.out.println( status );
+        if ( status ) {
+            return "redirect:/dashboard";
+        }
         return "login";
     }
 
