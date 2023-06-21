@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Service
@@ -16,11 +17,14 @@ import java.util.Optional;
 public class CustomerService {
 
     final CustomerRepository customerRepository;
+    final HttpServletRequest req;
 
     public ResponseEntity login(Customer customer) {
         Optional<Customer> customerOptional = customerRepository.findByUsernameEqualsAndPasswordEquals(customer.getUsername(), customer.getPassword());
-        if (customerOptional.isPresent() ) {
-            return new ResponseEntity(customer, HttpStatus.OK);
+        if (customerOptional.isPresent()) {
+            Customer c = customerOptional.get();
+            req.getSession().setAttribute("customer", c);
+            return new ResponseEntity(c, HttpStatus.OK);
         }
         return new ResponseEntity(false, HttpStatus.UNAUTHORIZED);
     }
